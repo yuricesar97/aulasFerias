@@ -27,7 +27,7 @@ public class CategoriasResource {
 		lista.add(cat2);
 		
 		
-		
+		 
 		return lista;
 		
 	}

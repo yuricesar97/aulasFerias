@@ -1,34 +1,30 @@
 package com.yuri.aulas.resource;
 
-
-
-
-import java.util.ArrayList;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yuri.aulas.domain.Categoria;
+import com.yuri.aulas.service.CategoriaService;
 
 @RestController
 @RequestMapping(value = "/categorias")
 public class CategoriasResource {
- 
-	@RequestMapping(method=RequestMethod.GET)
-	public List<Categoria> lista() {
-		
-		Categoria cat1 = new Categoria(1, "informatica");
-		Categoria cat2 = new Categoria(2, "Escritorio");
-		
-		List<Categoria>lista = new ArrayList<>();
-		lista.add(cat1);
-		lista.add(cat2);
+
+	@Autowired
+	private CategoriaService cat;
+	
+	@RequestMapping(value= "/{id}", method=RequestMethod.GET)// para bater em um end pont com id
+	public ResponseEntity<?> buscar(@PathVariable Integer id) {
 		
 		
-		 
-		return lista;
+		Categoria obj = cat.buscar(id);
+		
+		
+		return ResponseEntity.ok().body(obj) ;
 		
 	}
 	

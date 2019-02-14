@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.yuri.aulas.domain.Categoria;
 import com.yuri.aulas.repositories.CategoriasRepositoty;
+import com.yuri.aulas.service.exceptions.ObjectNotFoundException;
 
 
 @Service
@@ -22,7 +23,9 @@ public class CategoriaService {
 		
 		Optional<Categoria> op  = repo.findById(id);
 		
-		return op.orElse(null);
+		return op.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! id: " + id +", tipo: " + Categoria.class.getName()));
 	}
 	
 }
+
+

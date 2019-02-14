@@ -23,7 +23,7 @@ public class CategoriasResource {
 		
 		Categoria obj = cat.buscar(id);
 		
-		
+		 
 		return ResponseEntity.ok().body(obj) ;
 		
 	}

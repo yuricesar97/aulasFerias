@@ -9,8 +9,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.yuri.aulas.domain.Categoria;
+import com.yuri.aulas.domain.Cidade;
+import com.yuri.aulas.domain.Estado;
 import com.yuri.aulas.domain.Produto;
 import com.yuri.aulas.repositories.CategoriasRepositoty;
+import com.yuri.aulas.repositories.CidadeRepositoty;
+import com.yuri.aulas.repositories.EstadoRepositoty;
 import com.yuri.aulas.repositories.ProdutoRepositoty;
 
 
@@ -22,6 +26,10 @@ public class EstudosferiasApplication implements CommandLineRunner {
 	private CategoriasRepositoty categoriaRepository;
 	@Autowired
 	private ProdutoRepositoty produtoRepository;
+	@Autowired
+	private CidadeRepositoty cidadeRepositoty;
+	@Autowired
+	private EstadoRepositoty  estadoRepositoty;
 	
 	public static void main(String[] args)  {
 		SpringApplication.run(EstudosferiasApplication.class, args);
@@ -44,8 +52,26 @@ public class EstudosferiasApplication implements CommandLineRunner {
 		produto2.getCategorias().addAll(Arrays.asList(cat1,cat2));
 		produto3.getCategorias().addAll(Arrays.asList(cat1));
 		
+		
 		categoriaRepository.saveAll(Arrays.asList(cat1,cat2));
 		produtoRepository.saveAll(Arrays.asList(produto1,produto2,produto3));
+		
+	
+		Estado est1 = new Estado(null, "Minas Gerais");
+		Estado est2 = new Estado(null, "São Paulo");
+		
+		Cidade cid1 = new Cidade(null, "Uberlândia",est1);
+		Cidade cid2 = new Cidade(null, "São Paulo",est2);
+		Cidade cid3 = new Cidade(null, "Campinas",est2);
+		
+		est1.getCidades().addAll(Arrays.asList(cid1));
+		est2.getCidades().addAll(Arrays.asList(cid2,cid3));
+		
+		
+		estadoRepositoty.saveAll(Arrays.asList(est1,est2));
+		cidadeRepositoty.saveAll(Arrays.asList(cid1,cid2,cid3));
+	
+		
 		
 	}
 

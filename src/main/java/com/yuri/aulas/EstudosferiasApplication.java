@@ -38,6 +38,9 @@ public class EstudosferiasApplication implements CommandLineRunner {
 	@Autowired
 	private ClienteRepositoty clienteRepositoty;
 	@Autowired
+	
+	
+	
 	private EnderecoRepositoty  enderecoRepositoty;
 	public static void main(String[] args)  {
 		SpringApplication.run(EstudosferiasApplication.class, args);

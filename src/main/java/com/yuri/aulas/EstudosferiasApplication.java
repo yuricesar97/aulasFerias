@@ -14,6 +14,7 @@ import com.yuri.aulas.domain.Cidade;
 import com.yuri.aulas.domain.Cliente;
 import com.yuri.aulas.domain.Endereco;
 import com.yuri.aulas.domain.Estado;
+import com.yuri.aulas.domain.ItemPedido;
 import com.yuri.aulas.domain.Pagamento;
 import com.yuri.aulas.domain.PagamentoComBoleto;
 import com.yuri.aulas.domain.PagamentoComCartão;
@@ -26,6 +27,7 @@ import com.yuri.aulas.repositories.CidadeRepositoty;
 import com.yuri.aulas.repositories.ClienteRepositoty;
 import com.yuri.aulas.repositories.EnderecoRepositoty;
 import com.yuri.aulas.repositories.EstadoRepositoty;
+import com.yuri.aulas.repositories.ItemPedidoRepositoty;
 import com.yuri.aulas.repositories.PagamentoRepositoty;
 import com.yuri.aulas.repositories.PedidoRepositoty;
 import com.yuri.aulas.repositories.ProdutoRepositoty;
@@ -51,7 +53,8 @@ public class EstudosferiasApplication implements CommandLineRunner {
 	private PedidoRepositoty pedidoRepositoty;
 	@Autowired
 	private PagamentoRepositoty pagamentoRepositoty;
-	
+	@Autowired
+	private ItemPedidoRepositoty itemPedidoRepositoty;
 	
 
 	public static void main(String[] args)  {
@@ -125,6 +128,19 @@ public class EstudosferiasApplication implements CommandLineRunner {
 	     //pagamentoRepositoty.saveAll(Arrays.asList(pgto1,pgto2));
 	    	
 	   	
+	     ItemPedido ip1 = new ItemPedido(ped1, produto1, 0.00, 1, 2000.00);
+	     ItemPedido ip2 = new ItemPedido(ped1, produto3, 0.00, 2, 80.00);
+	     ItemPedido ip3 = new ItemPedido(ped2, produto2, 100.00, 1, 800.00);
+	     
+	     ped1.getItens().addAll(Arrays.asList(ip1,ip2));
+	     ped2.getItens().addAll(Arrays.asList(ip3));
+	     
+	     produto1.getItens().addAll(Arrays.asList(ip1));
+	     produto2.getItens().addAll(Arrays.asList(ip3));
+	     produto3.getItens().addAll(Arrays.asList(ip2));
+	     
+	     itemPedidoRepositoty.saveAll(Arrays.asList(ip1,ip2,ip3));
+	     
 	}
 
 }

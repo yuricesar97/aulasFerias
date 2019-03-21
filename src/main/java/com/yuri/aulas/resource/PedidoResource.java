@@ -7,21 +7,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.yuri.aulas.domain.Cliente;
-import com.yuri.aulas.service.ClienteService;
+import com.yuri.aulas.domain.Pedido;
+import com.yuri.aulas.service.PedidoService;
 
 @RestController
-@RequestMapping(value = "/clientes")
-public class ClienteResource {
+@RequestMapping(value = "/pedidos")
+public class PedidoResource {
 
 	@Autowired
-	private ClienteService cat;
+	private PedidoService cat;
 	
 	@RequestMapping(value= "/{id}", method=RequestMethod.GET)// para bater em um end pont com id
-	public ResponseEntity<Cliente> buscar(@PathVariable Integer id) {
+	public ResponseEntity<Pedido> buscar(@PathVariable Integer id) {
 		
 		
-		Cliente obj = cat.find(id);
+		Pedido obj = cat.find(id);
 		
 		 
 		return ResponseEntity.ok().body(obj) ;

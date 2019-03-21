@@ -14,16 +14,24 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Pedido {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date instante;
+	
 	
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")// necessario ,se vai não dar erro de entidade trasiente de quando vai salvar o pedido e pagamento
 	private Pagamento pagamento;
+	
 	
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")

@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yuri.aulas.domain.enums.EstadoPagamento;
 
 @Entity
@@ -20,14 +21,15 @@ public abstract class Pagamento implements Serializable { // classe abstrata nao
 	@Id //não colocamos o genete porque queremos que o id seja o mesmo do pedido 
 	private Integer id;
 	private  Integer estado;
-
+	
+	@JsonIgnore //  não serealiza pedido
 	@OneToOne
 	@JoinColumn(name="pedido_id")
 	@MapsId
 	private Pedido pedido;
 	
 
-	private Pagamento () {
+	public Pagamento() {
 		
 	}
 

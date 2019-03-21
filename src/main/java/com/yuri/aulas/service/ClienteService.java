@@ -19,7 +19,7 @@ public class ClienteService {
 	@Autowired
 	ClienteRepositoty repo;
 	
-	public Cliente buscar(Integer id) {
+	public Cliente find(Integer id) {
 		
 		Optional<Cliente> op  = repo.findById(id);
 		

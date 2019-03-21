@@ -1,4 +1,4 @@
-package com.yuri.aulas.service.exception;
+ package com.yuri.aulas.service.exception;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.yuri.aulas.service.exceptions.DataInternalException;
 import com.yuri.aulas.service.exceptions.ObjectNotFoundException;
 
 @ControllerAdvice//para intercptar erros 
@@ -20,4 +21,12 @@ public class ResourceExceptionHandler {
 	
 	}
 	
+	
+	@ExceptionHandler(DataInternalException.class)//indica que é um tratador de excessão de ObjectNotFoundException.class
+	public ResponseEntity<StandarError> DataInternalException(DataInternalException e, HttpServletRequest request){
+		
+		StandarError err = new StandarError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
+	    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err); 
+	
+	}
 }

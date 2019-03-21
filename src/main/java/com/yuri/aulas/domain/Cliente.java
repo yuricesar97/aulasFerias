@@ -14,7 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yuri.aulas.domain.enums.TipoCliente;
 
 @Entity
@@ -30,10 +30,10 @@ public class Cliente implements Serializable {
 	private Integer tipo;
 	
 	
-	@JsonManagedReference // serve para o cliente serializar os endereços (poder proteger o conjutos de dados)
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
 	
+	@JsonIgnore // pedidos do clinete não sera serealizados.
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>(); 
 	

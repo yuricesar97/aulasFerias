@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -35,18 +37,19 @@ public class CategoriasResource {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody Categoria obj) { // requestBody faz o json ser convertido para obj
-																		// java automaticamente
+	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDto) { // requestBody faz o json ser convertido para obj// java automaticamente
+		Categoria obj = service.fromDto(objDto);//coverto Dto para objeto entidade
 		obj = service.insert(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				  .path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id) {// receber o obejto json e
+	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO objDto, @PathVariable Integer id) {// receber o obejto json e
 																								// tambem o parametro da
-																								// URL
+		Categoria obj = service.fromDto(objDto);																						// URL
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
@@ -58,7 +61,10 @@ public class CategoriasResource {
 		return ResponseEntity.noContent().build();
 
 	}
-	@RequestMapping( method = RequestMethod.GET) // para bater em um end pont com id
+	
+	
+	
+	@RequestMapping( method = RequestMethod.GET) 
 	public ResponseEntity<List<CategoriaDTO>> findAll() {
 
 		List<Categoria> list = service.findAll();
@@ -67,15 +73,16 @@ public class CategoriasResource {
 																												  // collector realiza a transformação para lista novamente
 	}
 	
-	@RequestMapping(value = "/page", method = RequestMethod.GET) // para bater em um end pont com id
+	
+	@RequestMapping(value = "/page", method = RequestMethod.GET) //paginação
 	public ResponseEntity<Page<CategoriaDTO>> findPage(
 			@RequestParam (value = "page", defaultValue="0")Integer page,
-			Integer linesPerPage, 
-			String orderBy, 
-			String direction) {
+			@RequestParam (value = "linesPerPage", defaultValue="24")Integer  linesPerPage,
+			@RequestParam (value = "orderBy", defaultValue="nome")String orderBy, 
+			@RequestParam (value = "direction", defaultValue="ASC")String direction) {
 
-		List<Categoria> list = service.findAll();
-		List<CategoriaDTO> listDto = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());  //stream percorre a lista, map realiza uma operação para cada elemento da lista
+		Page<Categoria> list = service.findPage(page, linesPerPage, orderBy, direction);
+		Page<CategoriaDTO> listDto = list.map(obj -> new CategoriaDTO(obj));  //stream percorre a lista, map realiza uma operação para cada elemento da lista
 		return ResponseEntity.ok().body(listDto);										                               //obj função anonima que recebece uma obj com argumento 
 																												  // collector realiza a transformação para lista novamente
 	}

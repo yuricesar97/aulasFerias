@@ -2,6 +2,10 @@ package com.yuri.aulas.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.yuri.aulas.domain.Categoria;
 
 public class CategoriaDTO implements Serializable {
@@ -9,6 +13,9 @@ public class CategoriaDTO implements Serializable {
 
 	
 	private Integer id;
+	
+	@NotEmpty(message = "Preenchimento obrigatório")// validação do campo nome (caso esteja vazio)
+	@Length(min=5 , max= 80, message = "Tamanho deve ser entre 5 a 80 caracteres")// validação tamanho, caso não valide mostra mensagem
 	private String nome;
 	
 	public CategoriaDTO() {

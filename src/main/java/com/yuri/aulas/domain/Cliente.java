@@ -51,9 +51,10 @@ public class Cliente implements Serializable {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.cpfOuCnpj = cpfOuCnpj;
-		this.tipo = tipo.getCod();
 		this.email = email;
+		this.cpfOuCnpj = cpfOuCnpj;
+		this.tipo = (tipo==null) ? null : tipo.getCod(); //operador ternario ..  na intaciação não aceita nullo precisa de uma condicional por conta do getCod
+		
 	}
 
 	public Integer getId() {
@@ -67,6 +68,14 @@ public class Cliente implements Serializable {
 	public String getNome() {
 		return nome;
 	}
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 
 	public void setNome(String nome) {
 		this.nome = nome;
@@ -103,6 +112,14 @@ public class Cliente implements Serializable {
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
 	}
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+	
 
 	@Override
 	public int hashCode() {
@@ -129,21 +146,7 @@ public class Cliente implements Serializable {
 		return true;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public List<Pedido> getPedidos() {
-		return pedidos;
-	}
-
-	public void setPedidos(List<Pedido> pedidos) {
-		this.pedidos = pedidos;
-	}
+	
 	
 	
 }

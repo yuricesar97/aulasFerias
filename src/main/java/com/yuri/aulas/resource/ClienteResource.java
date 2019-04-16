@@ -1,6 +1,7 @@
 package com.yuri.aulas.resource;
 
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,12 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.yuri.aulas.domain.Cliente;
-
 import com.yuri.aulas.dto.ClienteDTO;
-
+import com.yuri.aulas.dto.ClienteNewDTO;
 import com.yuri.aulas.service.ClienteService;
 
 @RestController
@@ -36,8 +36,19 @@ public class ClienteResource {
 		return ResponseEntity.ok().body(obj) ;
 	}
 		
-		
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDto) { // requestBody faz o json ser convertido para obj// java automaticamente
+		Cliente obj = service.fromDto(objDto);//coverto Dto para objeto entidade
+		obj = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				  .path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
 
+	}	
+	
+	
+	
+	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO objDto, @PathVariable Integer id) {// receber o obejto json e
 																								// tambem o parametro da

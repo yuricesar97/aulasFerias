@@ -36,8 +36,9 @@ public class CategoriaService {
 	}
 
 	public Categoria update(Categoria obj) {
-		find(obj.getId());
-		return repo.save(obj); // save vale quanto para inserir quanto para update unica coisa que ele olha é
+		Categoria newObj = find(obj.getId()); //instanciar um cliente a parir do banco dados
+		updateData(newObj, obj); //atulaiza os dados como o obj que foi enviado na requisição
+		return repo.save(newObj); // save vale quanto para inserir quanto para update unica coisa que ele olha é
 								// se o Id esta nulo ele insere se não atualiza
 	}
 
@@ -83,6 +84,11 @@ public class CategoriaService {
 	public Categoria fromDto(CategoriaDTO objDto) { // metado auxiliar que instacia uma categoria a partir de um DTO
 		
 		return new Categoria(objDto.getId(),objDto.getNome());
+		
+	}
+
+	private void updateData(Categoria newObj, Categoria obj) { // metado aux para atualizar os campos do cliente, pegando o novo e colocando no antigo
+		newObj.setNome(obj.getNome());
 		
 	}
 

@@ -7,7 +7,7 @@ public class DataInternalException extends RuntimeException {
 	}
 	
 	public DataInternalException(String msg, Throwable cause)  {//construtor
-		super(msg,cause); //envica o metado passando a mensagem  ea causa do erro
+		super(msg,cause); //envoca o metado passando a mensagem  ea causa do erro
 	}
 	
 }

@@ -37,7 +37,7 @@ public abstract class Pagamento implements Serializable { // classe abstrata nao
 	public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
 		super();
 		this.id = id;
-		this.estado = estado.getCod();
+		this.estado = (estado == null)? null :estado.getCod(); //condição ternaria quando passamos nulos 
 		this.setPedido(pedido);
 	}
 

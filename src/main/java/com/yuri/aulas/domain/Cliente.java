@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +18,8 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yuri.aulas.domain.enums.TipoCliente;
+import com.yuri.aulas.service.validation.ClienteUpdate;
+
 
 @Entity
 public class Cliente implements Serializable {
@@ -26,6 +29,8 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	
+	@Column(unique = true) // faz o banco de dados garantir que não vai ter repetição com esse campo 
 	private String email;
 	private String cpfOuCnpj;
 	private Integer tipo;

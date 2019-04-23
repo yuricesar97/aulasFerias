@@ -39,7 +39,6 @@ public class ResourceExceptionHandler {
 	    
 		for(FieldError x : e.getBindingResult().getFieldErrors()) { //percorrer lista de erros, getBindin e getFiled acessa todos os erros de campos que ocorreu
 		 err.addError(x.getField(), x.getDefaultMessage());// x pega o nome do, getDefault pega a mensagem
-		
 		}
 		
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err); 

@@ -7,7 +7,6 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import com.yuri.aulas.domain.Categoria;
-import com.yuri.aulas.service.validation.ClienteUpdate;
 
 
 public class CategoriaDTO implements Serializable {

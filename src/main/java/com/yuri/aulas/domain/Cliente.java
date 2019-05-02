@@ -18,7 +18,6 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yuri.aulas.domain.enums.TipoCliente;
-import com.yuri.aulas.service.validation.ClienteUpdate;
 
 
 @Entity

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.yuri.aulas.domain.Categoria;
 import com.yuri.aulas.dto.CategoriaDTO;
-import com.yuri.aulas.repositories.CategoriasRepositoty;
+import com.yuri.aulas.repositories.CategoriasRepository;
 import com.yuri.aulas.service.exceptions.DataInternalException;
 import com.yuri.aulas.service.exceptions.ObjectNotFoundException;
 
@@ -20,7 +20,7 @@ import com.yuri.aulas.service.exceptions.ObjectNotFoundException;
 public class CategoriaService {
 
 	@Autowired
-	CategoriasRepositoty repo;
+	CategoriasRepository repo;
 
 	public Categoria find(Integer id) {
 

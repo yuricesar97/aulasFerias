@@ -3,9 +3,9 @@ package com.yuri.aulas.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.yuri.aulas.domain.Produto;
+import com.yuri.aulas.domain.Categoria;
 
 @Repository
-public interface ProdutoRepositoty extends JpaRepository<Produto, Integer>{
+public interface CategoriasRepository extends JpaRepository<Categoria, Integer>{
   
 }  

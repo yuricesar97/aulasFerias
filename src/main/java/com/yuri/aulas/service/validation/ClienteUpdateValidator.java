@@ -13,7 +13,6 @@ import org.springframework.web.servlet.HandlerMapping;
 
 import com.yuri.aulas.domain.Cliente;
 import com.yuri.aulas.dto.ClienteDTO;
-import com.yuri.aulas.dto.ClienteNewDTO;
 import com.yuri.aulas.repositories.ClienteRepositoty;
 import com.yuri.aulas.service.exception.FieldMessage;
 

@@ -18,7 +18,6 @@ import com.yuri.aulas.domain.Endereco;
 import com.yuri.aulas.domain.enums.TipoCliente;
 import com.yuri.aulas.dto.ClienteDTO;
 import com.yuri.aulas.dto.ClienteNewDTO;
-import com.yuri.aulas.repositories.CidadeRepositoty;
 import com.yuri.aulas.repositories.ClienteRepositoty;
 import com.yuri.aulas.repositories.EnderecoRepositoty;
 import com.yuri.aulas.service.exceptions.DataInternalException;

@@ -57,7 +57,14 @@ public class ItemPedido implements Serializable{
 		return id;
 	}
 
-
+	public void setPedido(Pedido pedido) {
+		id.setPedido(pedido); // necessario pois o framework não utiliza o construtor e sim os gets e sets
+	}
+	
+	public void setProduto(Produto produto) {
+		id.setProduto(produto);
+	}
+	
 	public void setId(ItemPedidoPK id) {
 		this.id = id;
 	}

@@ -11,10 +11,12 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.yuri.aulas.domain.enums.EstadoPagamento;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)// para mapear instacias no banco de dados
+@JsonTypeInfo (use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY,property = "@type")// dis que minha classe pagamento vai ter um campo adicional chamado type
 public abstract class Pagamento implements Serializable { // classe abstrata nao deixa instaciar nada do tipo pagamentp apenas as subclasses pode ser instanciada
 	private static final long serialVersionUID = 1L;
 	

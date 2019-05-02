@@ -17,7 +17,7 @@ import com.yuri.aulas.domain.Estado;
 import com.yuri.aulas.domain.ItemPedido;
 import com.yuri.aulas.domain.Pagamento;
 import com.yuri.aulas.domain.PagamentoComBoleto;
-import com.yuri.aulas.domain.PagamentoComCartão;
+import com.yuri.aulas.domain.PagamentoComCartao;
 import com.yuri.aulas.domain.Pedido;
 import com.yuri.aulas.domain.Produto;
 import com.yuri.aulas.domain.enums.EstadoPagamento;
@@ -148,7 +148,7 @@ public class EstudosferiasApplication implements CommandLineRunner {
 	   Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32 "), cli1, e1);
 	   Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 19:35 "), cli1, e2);
 	   
-	   Pagamento pgto1 = new PagamentoComCartão(null, EstadoPagamento.QUITADO, ped1, 6);
+	   Pagamento pgto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
 	   ped1.setPagamento(pgto1);
 	  
 	   

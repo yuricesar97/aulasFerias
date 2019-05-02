@@ -57,6 +57,15 @@ public class Pedido {
 		
 	}
 
+	public double getValorTotal() {
+		double soma = 0.0;
+		for (ItemPedido ip : itens) { // para cada itens pedido da lista itens faça isso
+			soma = soma + ip.getSubTotal();
+		}
+		return soma;
+	}
+	
+	
 	public Integer getId() {
 		return id;
 	}

@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.yuri.aulas.service.DBService;
+import com.yuri.aulas.service.EmailService;
+import com.yuri.aulas.service.SmtpEmailService;
 
 @Configuration
 @Profile("dev")// todos os bins dessa classe vai ser ativo apenas quando o test tiver ativo no application properties
@@ -29,6 +31,10 @@ public class DevConfig {
 		}		
 		dbService.instantiateTestDataBase();
 		return true;
+	}
+	@Bean
+	public EmailService emailService() {
+		return new SmtpEmailService();
 	}
 	
 }

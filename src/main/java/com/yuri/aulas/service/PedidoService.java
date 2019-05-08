@@ -20,6 +20,7 @@ import com.yuri.aulas.domain.ItemPedido;
 import com.yuri.aulas.domain.PagamentoComBoleto;
 import com.yuri.aulas.domain.Pedido;
 import com.yuri.aulas.domain.enums.EstadoPagamento;
+import com.yuri.aulas.repositories.ClienteRepositoty;
 import com.yuri.aulas.repositories.ItemPedidoRepositoty;
 import com.yuri.aulas.repositories.PagamentoRepositoty;
 import com.yuri.aulas.repositories.PedidoRepositoty;
@@ -41,6 +42,8 @@ public class PedidoService {
 	
 	@Autowired
 	private produtoRepositoty produtoRepositoty;
+	@Autowired
+	private ClienteService clienteService;
 	
 	@Autowired
 	private ProdutoService produtoService;
@@ -59,6 +62,7 @@ public class PedidoService {
 	public Pedido insert(Pedido obj) {
 		obj.setId(null);
 		obj.setInstante(new Date());
+		obj.setCliente(clienteService.find(obj.getCliente().getId()));
 		obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
 		obj.getPagamento().setPedido(obj);
 		if(obj.getPagamento() instanceof PagamentoComBoleto) { // se o meu pagamento for do tipo pagamento com boleto gera uma data para ele
@@ -71,11 +75,13 @@ public class PedidoService {
 		pagamentoRepositoty.save(obj.getPagamento());
 		for(ItemPedido ip : obj.getItens()) {
 			ip.setDesconto(0.0);
-			ip.setPreco(produtoService.find(ip.getProduto().getId()).getPreco());
+			ip.setProduto(produtoService.find(ip.getProduto().getId())); // item de pedido esta associado com o produto que buscou do banco de dados
+			ip.setPreco(ip.getProduto().getPreco());
 			ip.setPedido(obj);
 		}
 	
 		itemPedidoRepositoty.saveAll(obj.getItens());
+		System.out.println(obj);
 		return obj;
 	}
 }

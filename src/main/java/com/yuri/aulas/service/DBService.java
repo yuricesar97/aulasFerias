@@ -21,6 +21,7 @@ import com.yuri.aulas.domain.PagamentoComCartao;
 import com.yuri.aulas.domain.Pedido;
 import com.yuri.aulas.domain.Produto;
 import com.yuri.aulas.domain.enums.EstadoPagamento;
+import com.yuri.aulas.domain.enums.Perfil;
 import com.yuri.aulas.domain.enums.TipoCliente;
 import com.yuri.aulas.repositories.CategoriasRepository;
 import com.yuri.aulas.repositories.CidadeRepositoty;
@@ -128,16 +129,21 @@ public class DBService {
 			cidadeRepositoty.saveAll(Arrays.asList(cid1,cid2,cid3));
 		
 			Cliente cli1 = new Cliente (null, "Maria Silva", "yuricesar97@gmail.com", "36378912377", TipoCliente.PESSOAFISICO,bCryptPasswordEncoderEncoder.encode("123"));
-			
-	       cli1.getTelefones().addAll(Arrays.asList("27363323", "938393"));
+		   cli1.getTelefones().addAll(Arrays.asList("27363323", "938393"));
+		   
+		   Cliente cli2 = new Cliente (null, "Ana Costa", "yur4544@gmail.com", "36378912377", TipoCliente.PESSOAFISICO,bCryptPasswordEncoderEncoder.encode("321"));
+	       cli2.addPerfil(Perfil.ADMIN);
+	       cli2.getTelefones().addAll(Arrays.asList("23363323", "938388893"));
 	       
 	       Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cid1, cli1 );
 	       Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cid2, cli1);
+	       Endereco e3 = new Endereco(null, "Avenida Floriano", "206", null, "Campinas", "38777012", cid2, cli2);
 		  
 	       cli1.getEndereço().addAll(Arrays.asList(e1,e2)); //cliente conhecendo seu endereços       
+	       cli2.getEndereço().addAll(Arrays.asList(e3));
 	       
-		   clienteRepositoty.saveAll(Arrays.asList(cli1));
-		   enderecoRepositoty.saveAll(Arrays.asList(e1,e2));
+		   clienteRepositoty.saveAll(Arrays.asList(cli1,cli2));
+		   enderecoRepositoty.saveAll(Arrays.asList(e1,e2,e3));
 	       
 		
 		   SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy HH:mm"); /// para formatação de data e hora

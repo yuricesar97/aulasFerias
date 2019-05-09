@@ -10,6 +10,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.yuri.aulas.domain.Cidade;
@@ -30,6 +31,8 @@ public class ClienteService {
 	ClienteRepositoty repo;
 	@Autowired
 	EnderecoRepositoty enderecoRepository;
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 
 	public Cliente find(Integer id) {
@@ -97,14 +100,14 @@ public class ClienteService {
 
 	public Cliente fromDto(ClienteDTO objDto) { // metado auxiliar que instacia uma categoria a partir de um DTO
 
-		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null); // nulo porque não temos os
+		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null,null); // nulo porque não temos os
 																								// daddos no DTO
 
 	}
 
 	public Cliente fromDto(ClienteNewDTO objDto) { // metado auxiliar que instacia uma categoria a partir de um DTO
 			
-		Cliente cli1 = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpj(), TipoCliente.toEnum(objDto.getTipo()));
+		Cliente cli1 = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpj(), TipoCliente.toEnum(objDto.getTipo()),bCryptPasswordEncoder.encode(objDto.getSenha()));
 		Cidade cid = new Cidade(objDto.getCidadeId(), null, null);
 		Endereco end = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(), objDto.getBairro(), objDto.getCep(), cid, cli1);//endereços conhece os clientes
 		cli1.getEndereço().add(end); // cliente conhece seus endereços

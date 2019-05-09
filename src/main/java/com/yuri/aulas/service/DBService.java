@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.yuri.aulas.EstudosferiasApplication;
@@ -52,6 +53,8 @@ public class DBService {
 	private PagamentoRepositoty pagamentoRepositoty;
 	@Autowired
 	private ItemPedidoRepositoty itemPedidoRepositoty;
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoderEncoder;
 
 	
 	public void instantiateTestDataBase() throws ParseException {
@@ -124,7 +127,7 @@ public class DBService {
 			estadoRepositoty.saveAll(Arrays.asList(est1,est2));
 			cidadeRepositoty.saveAll(Arrays.asList(cid1,cid2,cid3));
 		
-			Cliente cli1 = new Cliente (null, "Maria Silva", "yuricesar97@gmail.com", "36378912377", TipoCliente.PESSOAFISICO);
+			Cliente cli1 = new Cliente (null, "Maria Silva", "yuricesar97@gmail.com", "36378912377", TipoCliente.PESSOAFISICO,bCryptPasswordEncoderEncoder.encode("123"));
 			
 	       cli1.getTelefones().addAll(Arrays.asList("27363323", "938393"));
 	       
